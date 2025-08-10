@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://bwml1dygmdq58"]
+[gd_scene load_steps=5 format=3 uid="uid://bwml1dygmdq58"]
+
+[ext_resource type="Shader" uid="uid://ctb613ats3crt" path="res://shaders/pixel_uv_shader.gdshader" id="1_owic0"]
+[ext_resource type="Texture2D" uid="uid://bfhkeoej8nwhx" path="res://sprites/skin_base_lookup_police.png" id="2_o1mwc"]
+[ext_resource type="Texture2D" uid="uid://cufwtgs2m2geq" path="res://sprites/Base_test_sprite.png" id="3_o1mwc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8n3nq"]
+shader = ExtResource("1_owic0")
+shader_parameter/Skin = ExtResource("2_o1mwc")
+shader_parameter/SkinDimension = 32.0
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8n3nq")
+texture = ExtResource("3_o1mwc")
