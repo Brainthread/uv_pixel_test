@@ -1,16 +1,67 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwml1dygmdq58"]
+[gd_scene load_steps=9 format=3 uid="uid://bwml1dygmdq58"]
 
 [ext_resource type="Shader" uid="uid://ctb613ats3crt" path="res://shaders/pixel_uv_shader.gdshader" id="1_owic0"]
 [ext_resource type="Texture2D" uid="uid://bfhkeoej8nwhx" path="res://sprites/skin_base_lookup_police.png" id="2_o1mwc"]
-[ext_resource type="Texture2D" uid="uid://cufwtgs2m2geq" path="res://sprites/Base_test_sprite.png" id="3_o1mwc"]
+[ext_resource type="Texture2D" uid="uid://dnpyrshlxxusx" path="res://sprites/Sprite-anim-Sheet.png" id="3_o1mwc"]
+[ext_resource type="Script" uid="uid://dm5r3pw78gtx0" path="res://scene/player_animation_player.gd" id="4_gudvc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8n3nq"]
 shader = ExtResource("1_owic0")
 shader_parameter/Skin = ExtResource("2_o1mwc")
 shader_parameter/SkinDimension = 32.0
 
+[sub_resource type="Animation" id="Animation_gudvc"]
+resource_name = "player_idle"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.366667, 0.566667, 0.766667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_4jh3p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4i5sc"]
+_data = {
+&"RESET": SubResource("Animation_4jh3p"),
+&"player_idle": SubResource("Animation_gudvc")
+}
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_8n3nq")
 texture = ExtResource("3_o1mwc")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+reset_on_save = false
+libraries = {
+&"": SubResource("AnimationLibrary_4i5sc")
+}
+script = ExtResource("4_gudvc")
+anim = "player_idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(7, 7)
