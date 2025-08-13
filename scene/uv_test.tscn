@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwml1dygmdq58"]
+[gd_scene load_steps=11 format=3 uid="uid://bwml1dygmdq58"]
 
 [ext_resource type="Shader" uid="uid://ctb613ats3crt" path="res://shaders/pixel_uv_shader.gdshader" id="1_owic0"]
 [ext_resource type="Texture2D" uid="uid://bfhkeoej8nwhx" path="res://sprites/skin_base_lookup_police.png" id="2_o1mwc"]
@@ -9,6 +9,21 @@
 shader = ExtResource("1_owic0")
 shader_parameter/Skin = ExtResource("2_o1mwc")
 shader_parameter/SkinDimension = 32.0
+
+[sub_resource type="Animation" id="Animation_4jh3p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_gudvc"]
 resource_name = "player_idle"
@@ -27,26 +42,17 @@ tracks/0/keys = {
 "values": [0, 1, 2, 1, 0, 0]
 }
 
-[sub_resource type="Animation" id="Animation_4jh3p"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4i5sc"]
 _data = {
 &"RESET": SubResource("Animation_4jh3p"),
 &"player_idle": SubResource("Animation_gudvc")
 }
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_gudvc"]
+allow_unpress = true
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4jh3p"]
+allow_unpress = true
 
 [node name="Node2D" type="Node2D"]
 
@@ -65,3 +71,26 @@ anim = "player_idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(7, 7)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -79.0
+offset_top = -42.0
+offset_right = 79.0
+offset_bottom = 43.0
+
+[node name="Button" type="Button" parent="Control"]
+offset_right = 32.0
+offset_bottom = 8.0
+focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_gudvc")
+
+[node name="Button2" type="Button" parent="Control"]
+offset_top = 10.0
+offset_right = 32.0
+offset_bottom = 18.0
+focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_4jh3p")
